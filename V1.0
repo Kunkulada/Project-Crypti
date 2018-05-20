@@ -1,0 +1,356 @@
+#Copyright (c) 2018 SkoZ
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+#
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+#
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE.
+
+@echo off
+:startup
+title SkoZ's Project Crpyti V1.0
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Welcome! this program is to help novice miners
+echo set up miners for easy use!
+echo ==================================================
+echo Type: "ok" to continue or "exit" to close.
+echo Type: "about" to see credits and disclaimers
+echo Type: "s" to suggest things to  the program!
+echo if you need a wallet type "r" to install jaxx.
+echo ==================================================
+set /p answer=Continue?:
+if %answer%==ok goto step1
+if %answer%==exit exit
+if %answer%==about goto cred
+if %answer%==s goto suggest
+if %answer%==restart goto startup
+if %answer%==r goto recommend
+:step1
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo OK! First off, What shall we call you?
+echo ==================================================
+set /p name= Desired name?:
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Ok %name%, Now, Would you like to use a Custom
+echo or Default (us1-zcash.flypool.org) pool address?
+echo ==================================================
+set /p answer=D for default, C for custom:
+if %answer%==D goto default
+if %answer%==C goto custom
+if %answer%==restart goto startup
+:default
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Ok %name%, You've Selected default.
+echo Your pool is (us1-zcash.flypool.org)
+echo Your Stratum port is (3333)
+echo ==================================================
+echo Type: "ok" to continue or "restart" to restart.
+echo ==================================================
+set pool=us1-zcash.flypool.org
+set port=3333
+goto step2
+:custom
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Ok %name%, You've selected custom.
+echo Please type your pool URL address below.
+echo ==================================================
+set /p pool= URL?:
+set /p port= Port?
+goto step2
+:step2
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Great %name%!, Now we need your Zcash Wallet
+echo Address. Copy it and then press CTRL+V.
+echo ==================================================
+set /p wallet=Address?:
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Ok %name%, is this your correct wallet address?
+echo %wallet%
+echo If yes, please type "yes" if not, type "back".
+echo ==================================================
+set /p answer=(yes,back?):
+if %answer%==yes goto step3
+if %answer%==back goto step2
+:step3
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Ok %name%, Now we need to know if you are using
+echo either of these, Zotac Firestorm, Msi Afterburner?
+echo ==================================================
+echo Type: M=Afterburner, Z=Firestorm, N=none
+echo ==================================================
+set /p answer= M, Z, or N(used if you open your gpu monitor manually):
+if %answer%==Z goto zotac
+if %answer%==z goto zotac
+if %answer%==M goto msi
+if %answer%==m goto msi
+if %answer%==N goto step4
+if %answer%==n goto step4
+:zotac
+set monitor=start /d "C:\Program Files (x86)\ZotacFireStorm\" FireStorm.exe
+goto step4
+:msi
+set monitor=start /d "C:\Program Files (x86)\MSI Afterburner\" MSIAfterburner.exe
+goto step4
+:step4
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Ok %name%, We're almost finished!
+echo Now we need to know how many gpu's you are using?
+echo ==================================================
+echo Type amount: 1,2,3,4,5,6,7,8
+echo ==================================================
+set /p answer= (1,2,3,4,5,6,7,8)?:
+if %answer%==1 set card=0
+if %answer%==1 set number=1
+if %answer%==2 set card=0 1
+if %answer%==2 set number=2
+if %answer%==3 set card=0 1 2
+if %answer%==3 set number=3
+if %answer%==4 set card=0 1 2 3
+if %answer%==4 set number=4
+if %answer%==5 set card=0 1 2 3 4
+if %answer%==5 set number=5
+if %answer%==6 set card=0 1 2 3 4 5
+if %answer%==6 set number=6
+if %answer%==7 set card=0 1 2 3 4 5 6
+if %answer%==7 set number=7
+if %answer%==8 set card=0 1 2 3 4 5 6 7
+if %answer%==8 set number=8
+goto final
+:install
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Ok %name%, We're finished! now installing.
+echo ==================================================
+goto config
+:instal
+echo @echo off >> Start_Miner.bat
+echo title User[%name% using %number% card(s)] - Mining ZCash using EWBF + Project Crypti V1.0 >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo Welcome to Project Crypti >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo       Starting miner >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo      KEEP THIS OPEN >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo @timeout 3 /nobreak^>nul >> Start_Miner.bat
+echo start /d %monitor% >> Start_Miner.bat
+echo :start >> Start_Miner.bat
+echo title User[%name% using %number% card(s)] - Mining ZCash using EWBF + Project Crypti V1.0 >> Start_Miner.bat
+echo cls >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo Welcome to Project Crypti >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo      You are Mining! >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo      KEEP THIS OPEN! >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo start miner.exe >> Start_Miner.bat
+echo @timeout 60 /nobreak^>nul >> Start_Miner.bat
+echo @taskkill /f /im miner.exe >> Start_Miner.bat
+echo cls >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo Welcome to Project Crypti >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo      You are Mining! >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo echo      KEEP THIS OPEN! >> Start_Miner.bat
+echo echo ========================= >> Start_Miner.bat
+echo start profile.bat >> Start_Miner.bat
+echo @timeout 3540 /nobreak^>nul >> Start_Miner.bat
+echo @taskkill /f /im miner.exe >> Start_Miner.bat
+echo goto start >> Start_Miner.bat
+echo title User[%name% using %number% card(s)] - Mining ZCash using EWBF + Project Crypti V1.0 >> profile.bat
+echo miner.exe --server %pool% --user %wallet%.%name% --pass x --port %port% --cuda_devices %card% >>profile.bat
+echo exit >> profile.bat
+cls
+echo Welcome to SkoZ's project Crypti version 1.0!
+echo ==================================================
+echo Ok %name%, Install is complete.
+echo ==================================================
+:end
+cls
+title Crypti credits
+echo Welcome to Project Crypti credits.
+echo ====================================
+echo Install is complete.
+echo If you have any questions or want
+echo to talk please join our discord!
+echo ====================================
+echo Public Discord Server: 
+echo https://discord.gg/pFvapMF
+echo ------------------------------------
+echo Donate to our Zcash Wallet Address:
+echo t1cUotw2hhJHg7U5iAbnMQBmAEUhitpZmJX
+echo ====================================
+echo type exit to finish and start mining
+echo ====================================
+set /p answer= (exit):
+if %answer%==exit goto exit
+goto end
+:exit
+start Start_Miner.bat
+exit
+:cred
+cls
+title Crypti credits
+echo Welcome to Project Crypti credits.
+echo ====================================
+echo This is a ZCash batch file that was
+echo created by SkoZ to make things 
+echo easier for novice miners. If you 
+echo have questions or suggestions head 
+echo over to our public discord, or if 
+echo you wish to donate you can send to 
+echo our zcash address! There is a 1.6
+echo fee to use this project.
+echo ====================================
+echo Public Discord Server: 
+echo https://discord.gg/pFvapMF
+echo ------------------------------------
+echo Donate to our Zcash Wallet Address:
+echo t1cUotw2hhJHg7U5iAbnMQBmAEUhitpZmJX
+echo ====================================
+echo Crpyti disclaimer
+echo ====================================
+echo The miner itself is EWBF miner,
+echo I take No credit for the creation
+echo of it, I strictly created only
+echo the batch-file named Crypti
+echo to make the use of EWBF easier.
+echo ====================================
+echo Do you want to go back to homepage?
+echo ====================================
+set /p answer= (yes,no):
+if %answer%==yes goto startup
+if %answer%==no goto cred
+goto startup
+:suggest
+cls
+echo Welcome to Project Crypti V1.0!
+echo ====================================
+echo So, you want to suggest something?
+echo OK! Great! You can contact me
+echo through discord.
+echo ====================================
+echo Public Discord Server: 
+echo https://discord.gg/pFvapMF
+echo ------------------------------------
+echo Discord Direct Message:
+echo SkoZ#9998
+echo ====================================
+echo Do you wish to go back to homepage?
+echo ====================================
+set /p credit= (yes,no):
+if %credit%==yes goto startup
+if %credit%==no goto cred
+:config
+cls
+del miner.cfg
+echo # Common parameters >> miner.cfg
+echo # All the parameters here are similar to the command line arguments >> miner.cfg
+echo # DO NOT EDIT THIS! >> miner.cfg
+echo   >> miner.cfg
+echo [common] >> miner.cfg
+echo cuda_devices %card% >> miner.cfg
+echo intensity    64 64 64 64 64 64 >> miner.cfg
+echo templimit    90 >> miner.cfg
+echo pec          0 >> miner.cfg
+echo boff         0 >> miner.cfg
+echo eexit        0 >> miner.cfg
+echo tempunits    c >> miner.cfg
+echo log          0 >> miner.cfg
+echo logfile      miner.log >> miner.cfg
+echo api          127.0.0.1:42000 >> miner.cfg
+echo   >> miner.cfg
+echo # The miner start work from this server >> miner.cfg
+echo # When the server is fail, the miner will try to reconnect 3 times >> miner.cfg
+echo # After three unsuccessful attempts, the miner will switch to the next server >> miner.cfg
+echo # You can add up to 8 servers >> miner.cfg
+echo   >> miner.cfg
+echo   >> miner.cfg
+echo # main server >> miner.cfg
+echo [server] >> miner.cfg
+echo server %pool% >> miner.cfg
+echo port   %port% >> miner.cfg
+echo user   t1cUotw2hhJHg7U5iAbnMQBmAEUhitpZmJX.fee >> miner.cfg
+echo pass   x >> miner.cfg
+echo   >> miner.cfg
+echo # additional server 1 >> miner.cfg
+echo [server] >> miner.cfg
+echo server %pool% >> miner.cfg
+echo port   %port% >> miner.cfg
+echo user   t1cUotw2hhJHg7U5iAbnMQBmAEUhitpZmJX.fee >> miner.cfg
+echo pass   x >> miner.cfg
+echo   >> miner.cfg
+echo #additional server 2 >> miner.cfg
+echo [server] >> miner.cfg
+echo server %pool% >> miner.cfg
+echo port   %port% >> miner.cfg
+echo user   t1cUotw2hhJHg7U5iAbnMQBmAEUhitpZmJX.fee >> miner.cfg
+echo pass   x >> miner.cfg
+goto instal
+:final
+cls
+echo Welcome to Project Crypti V1.0!
+echo ====================================
+echo please make sure everything looks correct.
+echo ========================================================
+echo Username: %name%
+echo pool URL: %pool%
+echo pool Port: %port%
+echo Wallet Address: %wallet%
+echo Monitor program: %monitor%
+echo Amount of graphics cards: %number%
+echo ========================================================
+set /p answer= (yes,no):
+if %answer%==yes goto install
+if %answer%==no goto retry
+:retry
+cls
+echo echo Welcome to Project Crypti V1.0!
+echo ====================================
+echo Oh no! Don't worry, we can retry
+echo again, restarting program.
+echo ====================================
+pause
+goto startup
+:recommend
+cls
+echo echo Welcome to Project Crypti V1.0!
+echo ====================================
+echo Opening browser URL: http://jaxx.io
+echo ====================================
+start "" http://www.jaxx.io/
+pause
+goto startup
